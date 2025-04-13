@@ -1,5 +1,4 @@
 import unittest
-
 from textnode import TextNode, TextType
 
 
@@ -27,7 +26,7 @@ class TestTextNode(unittest.TestCase):
     def test_repr(self):
         node = TextNode("Bold", TextType.BOLD, "url")
         node_str = node.__repr__()
-        self.assertNotEqual(node_str, "TextNode(Bold, This is a bold text node, url)")
+        self.assertEqual(node_str, "TextNode(Bold, This is a bold text node, url)")
 
 
 

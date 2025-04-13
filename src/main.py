@@ -1,7 +1,10 @@
-import textnode
+from textnode import TextNode, TextType
+from leafnode import LeafNode
 
 def main():
-    obj = textnode.TextNode("Hello world", textnode.TextType.LINK, "https://www.static.site")
+    obj = TextNode("Hello world", TextType.LINK, "https://www.static.site")
+    leaf_node = LeafNode("p", None, None)
+    leaf_node.to_html()
     print(obj)
 
 main()
