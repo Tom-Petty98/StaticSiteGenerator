@@ -3,10 +3,10 @@ class HTMLNode():
     # value - A string representing the value of the HTML tag (can have no value but in this case should have children)
     # children - A list of HTMLNode objects
     # props - A dictionary of key-value pairs representing the attributes of the HTML tag. For example, a link (<a> tag) might have {"href": "https://www.google.com"}
-    def __init__(self, tag = None, value = None, chidren = None, props = None):
+    def __init__(self, tag = None, value = None, children = None, props = None):
         self.tag = tag
         self.value = value
-        self.children = chidren
+        self.children = children
         self.props = props
 
     def to_html(self):

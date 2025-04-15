@@ -11,16 +11,15 @@ class TestLeafNode(unittest.TestCase):
         html = node.to_html()
         self.assertEqual(html, "Raw text")
 
-    def test_to_html(self):
-        node = LeafNode("p", "This is a paragraph of text.")
-        html = node.to_html()
-        self.assertEqual(html, "<p>This is a paragraph of text.</p>")
-
-    def test_props_to_html_2(self):
+    def test_props_to_html_link(self):
         node = LeafNode("a", "Click me!", {"href": "https://www.google.com"})
         html = node.to_html()
         self.assertEqual(html, "<a href=\"https://www.google.com\">Click me!</a>")
 
+    def test_props_to_html_img(self):
+        node = LeafNode("img", "", {"src" : "https://www.image.com", "alt": "alt text"})
+        html = node.to_html()
+        self.assertEqual(html, "<img src=\"https://www.image.com\" alt=\"alt text\"></img>")
 
 if __name__ == "__main__":
     unittest.main()
