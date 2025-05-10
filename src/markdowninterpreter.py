@@ -27,14 +27,6 @@ def extract_markdown_images(text):
     ## Markdown image pattern: ![alt text](image_url)
     return re.findall(r"!\[([^\]]*)\]\(([^)]+)\)", text)
 
-md_img_text = "Here is an image ![Example Image](https://example.com/image.jpg) and another ![Second](https://example.com/second.jpg)"
-images = extract_markdown_images(md_img_text)
-print(images) 
-
 def extract_markdown_links(text):
     ## Markdown link pattern: [link text](url)
-    return re.findall(r"\[([^\]]+)\]\(([^)]+)\)", text)
-
-md_link_text = "Here is a [GitHub link](https://github.com) and another [Python site](https://www.python.org)"
-links = extract_markdown_links(md_link_text)
-print(links)
+    return re.findall(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)", text)

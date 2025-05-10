@@ -1,6 +1,6 @@
 import unittest
 from textnode import TextNode, TextType
-from markdowninterpreter import split_nodes_delimiter
+from markdowninterpreter import split_nodes_delimiter, extract_markdown_images, extract_markdown_links
 
 
 class TestMarkdowninterpreter(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestMarkdowninterpreter(unittest.TestCase):
         new_nodes = split_nodes_delimiter([node, node2], "`", TextType.BOLD)
         self.assertEqual([node, node2], new_nodes)
 
-    # def test_text_bold_split(self):
+    # def test_text_bold_multi_split(self):
     #     node = TextNode("Text **bold text** node **bold text 2**", TextType.TEXT)
     #     new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
     #     expected = TextNode("Text ", TextType.TEXT)
@@ -35,6 +35,31 @@ class TestMarkdowninterpreter(unittest.TestCase):
         expected = TextNode("Text ", TextType.TEXT)
         expected2 = TextNode("code text", TextType.CODE)
         self.assertEqual(new_nodes, [expected, expected2])
+
+
+    def test_extract_markdown_no_images(self):
+        matches = extract_markdown_images(
+            "This is text with no images heres a link instead [GitHub link](https://github.com)"
+        )
+        self.assertListEqual([], matches)
+
+    def test_extract_markdown_multiple_images(self):
+        matches = extract_markdown_images(
+            "Here is an image ![Example Image](https://example.com/image.jpg) and another ![Second](https://example.com/second.jpg)"
+        )
+        self.assertListEqual([('Example Image', 'https://example.com/image.jpg'), ('Second', 'https://example.com/second.jpg')], matches)
+
+    def test_extract_markdown_no_links(self):
+        matches = extract_markdown_links(
+            "This is text with no links here is an image instead ![Example Image](https://example.com/image.jpg) and another ![Second](https://example.com/second.jpg)"
+        )
+        self.assertListEqual([], matches)
+
+    def test_extract_markdown_multiple_links(self):
+        matches = extract_markdown_links(
+            "Here is a [GitHub link](https://github.com) and another [Python site](https://www.python.org)"
+        )
+        self.assertListEqual([('GitHub link', 'https://github.com'), ('Python site', 'https://www.python.org')], matches)
 
 if __name__ == "__main__":
     unittest.main()
