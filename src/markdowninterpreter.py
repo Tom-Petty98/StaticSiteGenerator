@@ -2,6 +2,10 @@ from textnode import TextNode, TextType
 import re
 
 
+def markdown_to_blocks(markdown):
+    blocks = markdown.split("\n\n")
+    return [b.strip() for b in blocks if b] # remove empty
+
 def text_to_textnodes(text):
     nodes = [TextNode(text, TextType.TEXT)]
     nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
