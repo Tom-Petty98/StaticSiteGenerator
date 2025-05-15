@@ -8,11 +8,12 @@ class BlockType(Enum):
     ULIST = "<ul></ul>"
     OLIST = "<ol></ol>"
 
+#Returns block type and wheather the block has children
 def block_to_block_type(block):
     if block[0] == "#":
-        return BlockType.HEADING
+        return BlockType.HEADING, False
     elif block[0:3] == "```":
-        return BlockType.CODE
+        return BlockType.CODE, False
     
     quote_block = True
     ul_block = True
@@ -29,12 +30,12 @@ def block_to_block_type(block):
         count += 1
 
     if quote_block == True:
-        return BlockType.QUOTE
+        return BlockType.QUOTE, True
     elif ul_block == True:
-        return BlockType.ULIST
+        return BlockType.ULIST, True
     elif ol_block == True:
-        return BlockType.OLIST    
-    return BlockType.PARAGRAPH
+        return BlockType.OLIST, True
+    return BlockType.PARAGRAPH, False
 
 
 def markdown_to_blocks(markdown):

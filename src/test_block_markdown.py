@@ -49,17 +49,17 @@ This is the same paragraph on a new line
 
     def test_block_to_block_types(self):
         block = "# heading"
-        self.assertEqual(block_to_block_type(block), BlockType.HEADING)
+        self.assertEqual(block_to_block_type(block), (BlockType.HEADING, False))
         block = "```\ncode\n```"
-        self.assertEqual(block_to_block_type(block), BlockType.CODE)
+        self.assertEqual(block_to_block_type(block), (BlockType.CODE, False))
         block = "> quote\n> more quote"
-        self.assertEqual(block_to_block_type(block), BlockType.QUOTE)
+        self.assertEqual(block_to_block_type(block), (BlockType.QUOTE, True))
         block = "- list\n- items"
-        self.assertEqual(block_to_block_type(block), BlockType.ULIST)
+        self.assertEqual(block_to_block_type(block), (BlockType.ULIST, True))
         block = "1. list\n2. items"
-        self.assertEqual(block_to_block_type(block), BlockType.OLIST)
+        self.assertEqual(block_to_block_type(block), (BlockType.OLIST, True))
         block = "paragraph"
-        self.assertEqual(block_to_block_type(block), BlockType.PARAGRAPH)
+        self.assertEqual(block_to_block_type(block), (BlockType.PARAGRAPH, False))
 
 
 if __name__ == "__main__":
