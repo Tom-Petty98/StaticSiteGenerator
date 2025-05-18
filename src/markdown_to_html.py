@@ -12,6 +12,11 @@ block_type_dict = {
         BlockType.OLIST : ("ol", "li"),
     }
 
+def extract_h1(markdown):
+    blocks = markdown_to_blocks(markdown)
+    title_block = blocks[0].strip()
+    return title_block[1:]
+
 def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
     html_nodes = []
